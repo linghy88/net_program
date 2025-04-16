@@ -38,11 +38,11 @@ int main(int argc,char *argv[])
         puts("listen() error!");
         exit(1);
     }
-    epfd=epoll_create(BUFSIZE);//创建例程
-    ep_events=malloc(sizeof(struct epoll_event)*EPOLLSZ);//分配例程时间空间
+    epfd=epoll_create(EPOLLSZ);//创建例程
+    ep_events=malloc(sizeof(struct epoll_event)*EPOLLSZ);//分配例程空间
     event.events=EPOLLIN;//事件为例程可读
     event.data.fd=sock_serv;
-    epoll_ctl(epfd,EPOLL_CTL_ADD,sock_serv,&event);//op：增加事件
+    epoll_ctl(epfd,EPOLL_CTL_ADD,sock_serv,&event);//op：增加事件，传入event结构体地址
 
     while(1){
         epoll_cnt=epoll_wait(epfd,ep_events,EPOLLSZ,-1);//执行事件监听
